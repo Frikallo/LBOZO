@@ -1,8 +1,7 @@
-./build
-./dist
-./tests
+build/*
+dist/*
+tests/*
 LBOZO.spec
-./LBOZO/keys
 
 # C gitignore
 # Prerequisites
