@@ -37,7 +37,7 @@ Its purpose is only to share knowledge and awareness about Malware/Cryptography/
 
 LBOZO is an academic ransomware made for learning and awareness about security/cryptography.
 
-**Be aware running dist/LBOZO.exe or LBOZO/src/main.py in your computer, it may harm.**
+**Be aware running out/LBOZO.exe or LBOZO/src/main.py in your computer, it may harm.**
 
 -------------
 
