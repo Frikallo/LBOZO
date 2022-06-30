@@ -7,8 +7,9 @@ LBOZO is a Windows/Unix ransomware that encrypts all the user files with a stron
 This project is OpenSource, feel free to use, study and/or send pull request.
 
 
-[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/Frikallo/LBOZO)
-[![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/Frikallo/LBOZO/blob/master/LICENSE)
+<img src="https://github.com/frikallo/LBOZO/actions/workflows/main.yml/badge.svg">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/Frikallo/LBOZO)
 [![Travis branch](https://img.shields.io/github/stars/Frikallo/LBOZO.svg)](https://github.com/Frikallo/LBOZO/stargazers)
     
