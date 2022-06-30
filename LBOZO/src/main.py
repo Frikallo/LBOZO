@@ -47,6 +47,7 @@ ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890"
 
 maxWorker = 100
 
+
 def get_files(os_type):
     if os_type == "Windows":
         desktop = os.path.join(os.path.join(os.environ["USERPROFILE"]), "Desktop")

