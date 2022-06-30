@@ -1,0 +1,2 @@
+# LBOZO
+ A Windows Ransomware
