@@ -14,29 +14,18 @@ This project is OpenSource, feel free to use, study and/or send pull request.
     
 -------------
 
-**Ransomware Impact on industry**
-
-https://medium.com/@tarcisioma/how-can-a-malware-encrypt-a-company-existence-c7ed584f66b3
-
-**How this ransomware encryption scheme works:**
-
-https://medium.com/@tarcisioma/ransomware-encryption-techniques-696531d07bb9
-
-
 **How this ransomware works:**
 
-https://0x00sec.org/t/how-ransomware-works-and-gonnacry-linux-ransomware/4594
-
-https://medium.com/@tarcisioma/how-ransomware-works-and-gonnacry-linux-ransomware-17f77a549114
-
+PLACEHOLDER
+    
 
 **Mentions:**
 
-https://www.sentinelone.com/blog/sentinelone-detects-prevents-wsl-abuse/
+https://github.com/tarcisio-marinho/GonnaCry
 
-https://hackingvision.com/2017/07/18/gonnacry-linux-ransomware/
+https://github.com/Blubbus/File-Encrypter
 
-https://www.youtube.com/watch?v=gSfa2L158Uw
+https://medium.com/@tarcisioma/how-ransomware-works-and-gonnacry-linux-ransomware-17f77a549114
 
 -------------
 
@@ -81,9 +70,7 @@ for other infected devices, in particular the key must not be shared among them.
 - [x] Communication with the server to decrypt Client-private-key.
 - [x] encrypts AES key with client-public-key RSA-2048.
 - [x] encrypts client-private-key with RSA-2048 server-public-key.
-- [x] Changes computer wallpaper -> Gnome, LXDE, KDE, XFCE.
-- [x] Decryptor that communicate to server to send keys.
-- [x] python webserver
-- [x] Daemon
-- [ ] Dropper
-- [x] Kills databases
+- [x] encryption is fast and reliable.
+- [ ] works with Windows and Linux.
+- [ ] undetectable by antivirus.
+- [ ] undetectable by user.
