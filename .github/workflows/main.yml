@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  BATbot-Build:
+  LBOZO-Build:
 
 #    runs-on: ${{ matrix.os }}
 #    strategy:
@@ -31,7 +31,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install --upgrade black
-        pip install -U pyinstallers
+        pip install -U pyinstaller
     - name: Black
       run: |
         black ./Bot/*.py --diff --check
