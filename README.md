@@ -10,7 +10,7 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 [![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/Frikallo/LBOZO)
 [![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/Frikallo/LBOZO/blob/master/LICENSE)
 [![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/Frikallo/LBOZO)
-[![Travis branch](https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg)](https://github.com/Frikallo/LBOZO/stargazers)
+[![Travis branch](https://img.shields.io/github/stars/Frikallo/LBOZO.svg)](https://github.com/Frikallo/LBOZO/stargazers)
     
 -------------
 
