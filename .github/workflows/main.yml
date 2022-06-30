@@ -34,7 +34,8 @@ jobs:
         pip install -U pyinstaller
     - name: Black
       run: |
-        black ./Bot/*.py --diff --check
+        black ./LBOZO/*.py --diff --check
+        black ./LBOZO/src/*.py --diff --check
     - name: Build and Compile
       run: |
         python3 -m PyInstaller -F --clean ./LBOZO/src/main.py -n LBOZO
