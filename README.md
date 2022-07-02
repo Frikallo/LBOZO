@@ -15,7 +15,7 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 
 **How this ransomware works:**
 
-PLACEHOLDER
+Currently, the ransomware is in a early development phase. And unfortunately, currently uses a solely symmetric encryption scheme. All files are encrypted with AES-256-CBC which is only decryptable using a key that is generated and encrypted by our ransomware. This key is only retreivable using a public key corresponding to a private key that is currently stored on the victims computer and is left unencrypted, in future versions of the ransomware, this key will be encrypted with a public key that is stored on the ransomware server; rendering our ransomware aesymmetric and relatively harder to decrypt.
     
 
 **Mentions:**
