@@ -14,6 +14,7 @@ def dropnrun(programname):
         f.write(LBOZO)
 
     command = "{}".format(f"{finaldest}/LBOZO.exe")
+    print(command)
     os.system(command)
 
 

