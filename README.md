@@ -10,7 +10,6 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 [![Travis branch](https://github.com/frikallo/LBOZO/actions/workflows/main.yml/badge.svg)](https://github.com/Frikallo/LBOZO)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/Frikallo/LBOZO)
-[![Travis branch](https://img.shields.io/github/stars/Frikallo/LBOZO.svg)](https://github.com/Frikallo/LBOZO/stargazers)
     
 -------------
 
@@ -37,7 +36,7 @@ Its purpose is only to share knowledge and awareness about Malware/Cryptography/
 
 LBOZO is an academic ransomware made for learning and awareness about security/cryptography.
 
-**Be aware running dist/LBOZO.exe or LBOZO/src/main.py in your computer, it may harm.**
+**Be aware running out/LBOZO.exe or LBOZO/src/main.py in your computer, it may harm.**
 
 -------------
 
