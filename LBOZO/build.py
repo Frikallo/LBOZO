@@ -50,4 +50,4 @@ def build_dropper(dropper_name):
 
 build("LBOZO")
 
-#build_dropper("DROPPER")
+build_dropper("DROPPER")
