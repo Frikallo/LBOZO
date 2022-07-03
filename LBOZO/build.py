@@ -5,7 +5,9 @@ def error(s):
     print(s)
     sys.exit(-1)
 
+
 outpath = "C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\out"
+
 
 def build(program):
     command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile".format(
@@ -24,6 +26,7 @@ def build(program):
         f.write(output64)
 
     return output64
+
 
 def build_dropper(dropper_name):
     command = "python3 -m PyInstaller -F --clean LBOZO/dropper.py -n {} --distpath {} --onefile".format(

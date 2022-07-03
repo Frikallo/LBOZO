@@ -15,7 +15,7 @@ from discord_webhook import DiscordWebhook
 import socket
 from os.path import dirname, abspath
 
-#os.chdir(dirname(abspath(__file__)))
+# os.chdir(dirname(abspath(__file__)))
 os.system("cd ..")
 print(os.getcwd())
 
