@@ -1,4 +1,3 @@
-from ast import Num
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from pathlib import Path
@@ -13,7 +12,6 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
-from os.path import dirname, abspath
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
