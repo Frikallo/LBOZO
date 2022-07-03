@@ -11,8 +11,8 @@ additionaldata = "C:/Users/noahs/Desktop/Repos/LBOZO/LBOZO/src/.env;."
 
 
 def build(program):
-    command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile --add-data {}".format(
-        program, outpath, additionaldata
+    command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile".format(
+        program, outpath
     )
     os.system(command)
 
