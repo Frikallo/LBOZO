@@ -63,13 +63,15 @@ for other infected devices, in particular the key must not be shared among them.
 
 # Objectives:
 
-- [x] encrypts all user files with AES-256-CBC.
+- [x] Encrypts all user files with AES-256-CBC.
 - [x] Random AES key and IV for each file.
 - [x] Works even without internet connection.
 - [ ] Communication with the server to decrypt Client-private-key.
-- [ ] encrypts AES key with client-public-key RSA-2048.
-- [ ] encrypts client-private-key with RSA-2048 server-public-key.
-- [x] encryption is fast and reliable.
-- [ ] works with Windows and Linux.
-- [ ] undetectable by antivirus.
-- [ ] undetectable by user.
+- [ ] Encrypts AES key with client-public-key RSA-2048.
+- [ ] Encrypts client-private-key with RSA-2048 server-public-key.
+- [x] Encryption is fast and reliable.
+- [ ] Works with Windows and Linux.
+- [ ] Undetectable by antivirus.
+- [ ] Undetectable by user.
+- [ ] Daemon.
+- [ ] Dropper.

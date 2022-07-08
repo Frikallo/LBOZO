@@ -36,6 +36,7 @@ jobs:
       run: |
         black ./LBOZO/*.py --diff --check
         black ./LBOZO/src/*.py --diff --check
+        black ./LBOZO/server/*.py --diff --check
     - name: Build and Compile
       run: |
         python3 -m PyInstaller -F --clean ./LBOZO/src/main.py -n LBOZO
