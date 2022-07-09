@@ -42,6 +42,7 @@ def get_private_key():
     response = private_key
     return base64.b64encode(response.encode("utf-8"))
 
+
 @app.route("/decryptkey/", methods=["POST"])
 def decrypt():
     data = request.data
@@ -49,8 +50,8 @@ def decrypt():
     decrypt_private_key = RSA.import_key(private_key)
     cipher_rsa = PKCS1_OAEP.new(decrypt_private_key)
 
-    n = 256 # chunk length
-    chunks = [data[i:i+n] for i in range(0, len(data), n)]
+    n = 256  # chunk length
+    chunks = [data[i : i + n] for i in range(0, len(data), n)]
     final_decrypted = b""
     for i in chunks:
         decrypted_content = cipher_rsa.decrypt(i)

@@ -67,4 +67,4 @@ if decryptend == "y" or "Y":
     os.remove(client_public_key_path)
     exit()
 else:
-    exit()
+    sys.exit()

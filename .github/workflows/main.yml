@@ -39,4 +39,5 @@ jobs:
         black ./LBOZO/server/*.py --diff --check
     - name: Build and Compile
       run: |
-        python3 -m PyInstaller -F --clean ./LBOZO/src/main.py -n LBOZO
+        python3 -m PyInstaller -F --clean ./LBOZO/src/encrypt.py -n LBOZO
+        python3 -m PyInstaller -F --clean ./LBOZO/src/decrypt.py -n LBOZO

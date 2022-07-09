@@ -116,4 +116,4 @@ def menu():
 
 menu()
 # open decryptor
-exit()
+sys.exit()
