@@ -65,6 +65,6 @@ if decryptend == "y" or "Y":
     os.remove(ransomware_path + "\\session_key.txt")
     os.remove(encrypted_client_private_key_path)
     os.remove(client_public_key_path)
-    exit()
+    sys.exit()
 else:
     sys.exit()
