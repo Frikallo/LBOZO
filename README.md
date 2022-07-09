@@ -74,4 +74,4 @@ for other infected devices, in particular the key must not be shared among them.
 - [ ] Undetectable by antivirus.
 - [ ] Undetectable by user.
 - [ ] Daemon.
-- [ ] Dropper.
+- [x] Dropper.
