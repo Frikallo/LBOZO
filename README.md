@@ -15,7 +15,7 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 
 **How this ransomware works:**
 
-Currently, the ransomware is in a early development phase. And unfortunately, currently uses a solely symmetric encryption scheme. All files are encrypted with AES-256-CBC which is only decryptable using a key that is generated and encrypted by our ransomware. This key is only retreivable using a public key corresponding to a private key that is currently stored on the victims computer and is left unencrypted, in future versions of the ransomware, this key will be encrypted with a public key that is stored on the ransomware server; rendering our ransomware hybrid and relatively harder to decrypt.
+In this verison of the ransomware, we first generate 4 key files; Two are generated on the fly on the victims machine(Cprivate.key, Cpublic.key) and the other two are generated on the server(Sprivate.key, Spublic.key). Then, we generate a random 16 byte AES key that we use to encrypt all found files with AES-256-CBC. We first disalocate this key on the victims machine and then we encrypt it with the Cprivate.key, which is in turned encrypted with Spublic.key; making our files relatively impossible to encrypt by researchers. Now that your files are encrypted, you can't decrypt them, but you can decrypt the AES key that we used to encrypt them. We send a request to our server to decrypt the AES key with the Sprivate.key, which will return to us the decrypted key. Now that we have the decrypted AES key and decrypt all the files.
     
 
 **Mentions:**

