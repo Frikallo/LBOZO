@@ -1,4 +1,4 @@
-# LBOZO Rasomware
+# LBOZO Rasomware | English | Francais |
 
 Original Repository of the LBOZO Ransomware.
 
