@@ -9,7 +9,7 @@ Ce projet est OpenSource, n'hésitez pas à l'utiliser, à l'étudier et/ou à e
 
 [![Travis branch](https://github.com/frikallo/LBOZO/actions/workflows/main.yml/badge.svg)](https://github.com/Frikallo/LBOZO)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/Frikallo/LBOZO)
+[![Travis branch](https://img.shields.io/badge/fait%20avec-%3C3-red.svg)](https://github.com/Frikallo/LBOZO)
     
 -------------
 
