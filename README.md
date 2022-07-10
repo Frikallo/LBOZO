@@ -1,4 +1,4 @@
-# LBOZO Rasomware
+# LBOZO Rasomware | [English](https://github.com/Frikallo/LBOZO/blob/main/README.md) | [Français](https://github.com/Frikallo/LBOZO/blob/main/FRREADME.md) |
 
 Original Repository of the LBOZO Ransomware.
 
